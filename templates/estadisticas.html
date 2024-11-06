@@ -1,0 +1,27 @@
+{% extends "contents.html" %}
+{%block content %}
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="d-flex justify-content-center">
+                        <div class="alert alert-sm alert-dismissible alert-warning" style="width: 300px; margin-top:5px;">
+                            <button type="button" class="close" data-dismiss="alert"></button>
+                            <p class="mb-0">{{ message }} </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+
+
+<div class="d-flex justify-content-center">
+    <img src="data:image/png;base64,{{ graph_data | b64encode }}" alt="gráfica datos visionado">
+
+</div>
+
+<h1 style="font-size:25px" class="d-flex justify-content-center">
+    <a>Total minutos películas: {{ minutos_totales_peliculas[0][0] }} <br>
+    Total minutos series: {{ minutos_totales_series.minutos_totales }}</a>
+</h1>
+
+{% endblock %}

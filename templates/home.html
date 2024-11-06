@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PY MOVIES</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/spacelab/bootstrap.min.css" integrity="sha384-F1AY0h4TrtJ8OCUQYOzhcFzUTxSOxuaaJ4BeagvyQL8N9mE4hrXjdDsNx249NpEc" crossorigin="anonymous">
+
+    <!-- Hoja de estilo-->
+    <link rel="stylesheet" href= "{{ url_for('static', filename= 'main.css') }}">
+    <style>
+    h1 {
+        text-align: center;
+        margin-top: 50px;
+        }
+
+    .alert {
+        max-width: 500px;
+        margin: 20px auto;
+    }
+
+
+
+        </style>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+
+                        <div class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert"></button>
+                            <h4 class="alert-heading">Error al iniciar sesión</h4>
+                            <p class="mb-0">{{ message }} </p>
+                        </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <p style="text-align:center;">
+        <img src="/static/py2.png" alt="logo" width="300" height="300" class="center">
+    </p>
+    <div class="container text-center">
+        <h1>Te damos la bienvenida a PY Movies</h1>
+    <p class = "center">
+    <form method="POST" action="{{url_for('login') }}">
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Nombre de usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+     </form>
+        <a href="{{url_for('register') }}">
+        <button type="button" class="btn btn-primary">Crear cuenta</button>
+
+
+    <p class = "center" >
+
+    </p>
+
+    </div>
+    <p style="text-align:center; margin-top: 100px">
+        <img src="/static/print2.png" alt="pypanda" width="275" height="275" class="center">
+    </p>
+<!-- Script de JavaScript para que el flash se cierre automáticamente -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-lZN37f6/0+M5vEXN1tyAZDpAkHzGV1gWUMxl5MkB6nJ6Hef0fZnFxsaA5owu1p3B" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Select all alert elements
+            const alerts = document.querySelectorAll('.alert');
+            // Set a timeout to hide each alert after 5 seconds
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                    setTimeout(() => alert.remove(), 150);  // Remove the element after fade out
+                }, 5000);
+            });
+        });
+    </script>
+
+</body>
+</html>

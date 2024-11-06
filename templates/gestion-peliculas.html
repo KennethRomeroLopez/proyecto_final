@@ -1,0 +1,79 @@
+{% extends "contents.html" %}
+{%block content %}
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="d-flex justify-content-center">
+                        <div class="alert alert-sm alert-dismissible alert-warning" style="width: 300px; margin-top:5px;">
+                            <button type="button" class="close" data-dismiss="alert"></button>
+                            <p class="mb-0">{{ message }} </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+
+                    <form class="text-center" action="{{url_for('gestion_peliculas') }}"
+                    style="margin-top: 50px" method='POST' enctype='multipart/form-data'>
+                        <input type="file" name="imagen"/>
+                        <input type="text" name="titulo" placeholder="Título"/>
+                        <input type="text" name="duracion" placeholder="Duración"/>
+                        <input type="text"  name="genero" placeholder="Género"/>
+                        <input type="text"  name="anio" placeholder="Año"/>
+                        <input type="submit" value="Crear película"/>
+                    </form>
+
+
+                    <table class="text-center mx-auto text-white" style="margin-top: 50px">
+                        <th>Título</th>
+                        <th>Duración</th>
+                        <th>Género</th>
+                        <th>Año</th>
+                        {% for pelicula in peliculas %}
+                        <tr>
+                            <td> {{ pelicula.titulo }} </td>
+                            <td> {{ pelicula.duracion }}</td>
+                            <td> {{ pelicula.genero }}</td>
+                            <td> {{ pelicula.anio }}
+                                <a href="{{ url_for('eliminar_pelicula', id=pelicula.id) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1
+                                        .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0
+                                        0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                <a href="{{ url_for ('editar_peliculas', id=pelicula.id) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                            </td>
+                                <a/>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+
+
+
+
+{% endblock %}
+
+<!-- Script de JavaScript para que el flash se cierre automáticamente -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-lZN37f6/0+M5vEXN1tyAZDpAkHzGV1gWUMxl5MkB6nJ6Hef0fZnFxsaA5owu1p3B"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('.alert').forEach((alert) => {
+            setTimeout(() => {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+                setTimeout(() => alert.remove(), 150); // Remove the element after fade out
+            }, 5000); // 5 seconds
+        });
+    });
+</script>
+
+

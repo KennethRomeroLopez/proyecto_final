@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <title>Crear cuenta</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/spacelab/bootstrap.min.css" integrity="sha384-F1AY0h4TrtJ8OCUQYOzhcFzUTxSOxuaaJ4BeagvyQL8N9mE4hrXjdDsNx249NpEc" crossorigin="anonymous">
+
+    <!-- Hoja de estilo-->
+    <link rel="stylesheet" href= "{{ url_for('static', filename= 'main.css') }}">
+
+    <style>
+    div {
+        text-align: center;
+        margin-top: 50px;
+        }
+    .container {
+        margin-top: 50px;
+    }
+    </style>
+
+</head>
+
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.category == success %}
+                <div class="d-flex justify-content-center">
+                    <div class="alert alert-sm alert-dismissible alert-warning" style="width: 300px; margin-top:5px;">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                            <span aria-hidden="true">&times;</span>
+                            <p class="mb-0">{{ message }} </p>
+                    </div>
+                </div>
+            {% elif message.category == error %}
+                <div class="d-flex justify-content-center">
+                    <div class="alert alert-sm alert-dismissible alert-warning" style="width: 300px; margin-top:5px;">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                            <span aria-hidden="true">&times;</span>
+                            <p class="mb-0">{{ message }} </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    </div>
+
+
+    <div class="container text-center">
+        <h1>Crea tu cuenta de PY Movies</h1>
+        <form method = 'POST' action="{{url_for('register') }}">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear cuenta</button>
+        </form>
+        <a href="{{url_for('home')}}">¿Ya tienes una cuenta? Inicia sesión</a>
+    </div>
+</body>
+</html>
